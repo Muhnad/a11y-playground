@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+
+  <title>tooltip</title>
+
+  <style>
+    .container {
+      display: flex;
+      padding: 1em;
+    }
+    .container > * {
+      width: 33%;
+    }
+
+
+
+    /* * Tooltio label * */
+    .tooltip-label, .tooltip-labelledby, .tooltip-desc {
+      position: relative;
+    }
+
+    .tooltip-label__btn:before {
+      content: attr(aria-label);
+
+      padding: .5em;
+      border-radius: .2em;
+
+      background-color: #000;
+      color: #fff;
+
+      position: absolute;
+      bottom: 0;
+
+      display: none;
+    }
+
+    .tooltip-label__btn:hover:before ,
+    .tooltip-label__btn:focus:before {
+      display: block
+    }
+
+
+  /* * Tooltip with aria-labelldby  * */
+  .tooltip__msg {
+    position: absolute;
+
+    padding: .5em;
+    border-radius: .2em;
+
+    background-color: #000;
+    color: #fff;
+
+    display: none;
+  }
+
+  .tooltip:hover ~ .tooltip__msg,
+  .tooltip:focus ~ .tooltip__msg {
+    display: block
+  }
+
+  </style>
+
+</head>
+<body>
+
+<!--
+  - aria-label will show the value of it instead of button text value.
+  - aria-labelledby & aria-describedby will refer button to the specific element you choice.
+ -->
+
+  <main class="container" role="main" aria-label="tooltip examples">
+
+    <div class="tooltip-label">
+      <button  class="tooltip-label__btn"
+               role="tooltip"
+               aria-label="close">X</button>
+    </div>
+
+    <div class="tooltip-labelledby">
+        <button class="tooltip"
+                role="tooltip"
+                aria-labelledby="tooltip-msg-label"
+                aria-controls="tooltip-msg-label">X</button>
+        <div id="tooltip-msg-label" class="tooltip__msg">close</div>
+    </div>
+
+    <div class="tooltip-desc">
+        <button class="tooltip"
+                role="tooltip"
+                aria-describedby="tooltip-msg-desc"
+                aria-controls="tooltip-msg-desc">X</button>
+        <div id="tooltip-msg-desc" class="tooltip__msg">close</div>
+    </div>
+
+  </main>
+
+</body>
+</html>
