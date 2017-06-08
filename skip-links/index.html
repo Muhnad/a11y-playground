@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+
+  <title>skip links</title>
+
+  <style>
+    body {
+      padding: 0 1em;
+    }
+
+
+    /* *  Skip links * */
+    .skip-links {
+      position: relative;
+
+      list-style-type: none;
+    }
+
+    .skip-links__item {
+      position: absolute;
+      transform: translateY(-80px);
+
+      padding: 1em;
+
+      background: #000;
+      color: white;
+
+      text-decoration: none;
+
+      transition: transform .5s ease-in-out;
+    }
+    .skip-links__item:focus {
+      transform: translateY(0);
+    }
+
+
+  /* *  Placeholder contrast * */
+    ::-webkit-input-placeholder {
+      color: #000;
+    }
+    ::-moz-placeholder {
+      color: #000;
+    }
+    :-ms-input-placeholder {
+      color: #000;
+    }
+    :-moz-placeholder {
+      color: #000;
+    }
+
+
+  </style>
+
+</head>
+<body>
+  <ul class="skip-links">
+    <li class="skip-links__list">
+      <a href="#main" class="skip-links__item">skip to main content</a>
+    </li>
+    <li class="skip-links__list">
+      <a href="#search-input" class="skip-links__item">skip to search</a>
+    </li>
+    <li class="skip-links__list">
+      <a href="#nav" class="skip-links__item">skip to navigation</a>
+    </li>
+  </ul>
+
+  <nav id="nav"
+       role="navigation"
+       aria-label="main navigation">
+         <ul>
+           <li><a href="index.html" aria-current="page">Home</a></li>
+           <li><a href="#about">about</a></li>
+         </ul>
+  </nav>
+
+  <main id="main"
+        class="container"
+        role="main"
+        aria-label="main content">
+
+    <h1>Hello World!</h1>
+
+    <form id="search" role="search" aria-labelledby="search-title">
+      <h2 id="search-title">search form:</h2>
+
+      <label for="search-input">search:</label>
+      <input type="search" id="search-input" placeholder="search about...">
+    </form>
+
+  </main>
+
+</body>
+</html>
