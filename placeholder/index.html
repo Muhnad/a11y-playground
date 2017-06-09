@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+
+  <title>placehoder & labels</title>
+
+  <style>
+    body {
+      padding: 0 1em;
+    }
+
+
+  /* * Form * */
+    form {
+      margin-bottom: 1em;
+    }
+    label {
+      display: block;
+
+      margin-bottom: .2em;
+    }
+
+    [role="tooltip"] {
+      background: #494947;
+      color: #fff;
+
+      padding: .2em .5em;
+
+      display: none;
+    }
+    input:focus + [role="tooltip"] {
+      display: inline-block;
+    }
+
+  /* * SR * */
+  .sr-only {
+    width: 1px;
+    height: 1px;
+
+    clip: rect(1px, 1px, 1px, 1px);
+    -webkit-clip-path: inset(50%);
+    clip-path: inset(50%);
+
+    overflow: hidden;
+    white-space: nowrap;
+
+    position: absolute;
+    top: 0;
+
+  }
+
+
+  /* *  Placeholder contrast * */
+    ::-webkit-input-placeholder {
+      color: #666;
+    }
+    ::-moz-placeholder {
+      color: #666;
+    }
+    :-ms-input-placeholder {
+      color: #666;
+    }
+    :-moz-placeholder {
+      color: #666;
+    }
+
+
+  </style>
+
+</head>
+<body>
+  <main id="main" role="main" aria-labelledby="main-title">
+    <h1 id="main-title">placehoder & labels</h1>
+    <h2>tests & experiments</h2>
+
+    <form aria-labelledby="label-insted-placeholder">
+      <h3 id="label-insted-placeholder">
+        Place a label above the input instead of using a placeholder as a label.
+      </h3>
+
+      <label for="email">Email</label>
+      <input type="email" id="email">
+    </form>
+
+    <form aria-labelledby="placeholder-as-example">
+      <h3 id="placeholder-as-example">
+        Include example text outside of the input instead of as a placeholder.
+      </h3>
+
+      <label for="user-email">Email</label>
+      <input type="email" id="user-email" aria-describedby="example"/>
+      <p id="example">Example: example@example.com</p>
+    </form>
+
+    <form aria-labelledby="placeholder-help-text">
+      <h3 id="placeholder-help-text">
+        Placeholder text should not be used as helper text.
+      </h3>
+
+      <label for="password">Password</label>
+      <input type="password" id="password" aria-describedby="tooltip"/>
+      <span id="tooltip" role="tooltip">Must have unique character like & $ #</span>
+    </form>
+
+    <form aria-labelledby="placeholder-as-label">
+      <h3 id="placeholder-as-label">
+        Employ secondary labels as labels, not placeholders.
+      </h3>
+
+      <label for="name" id="label-name">Name</label>
+      <input type="text" id="name" aria-describedby="fname">
+      <span id="fname">First</span>
+      <br> <br>
+      <input type="text" aria-labelledby="lname label-name" >
+      <span id="lname">Last</span>
+    </form>
+
+    <form aria-labelledby="vs-label">
+      <h3 id="vs-label">
+        visually hide labels if you don't need it.
+      </h3>
+      <label for="label-vs" class="sr-only">keep label</label>
+      <input type="text" placeholder="placeholder text" id="label-vs">
+    </form>
+
+    <form aria-labelledby="placeholder-not-disappear">
+      <h3 id="placeholder-not-disappear">
+        Keep placeholder text until a user begins to type.
+      </h3>
+      <input type="text" placeholder="placeholder text" aria-label="placeholder text again">
+    </form>
+
+  </main>
+</body>
+</html>
