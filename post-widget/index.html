@@ -136,7 +136,7 @@
       display: none;
     }
 
-    .is--hidden {
+    .js--hidden {
       display: none;
     }
 
@@ -194,7 +194,7 @@
             <label for="post-content" class="sr-only">share your moments</label>
             <textarea name="post" id="post-content" class="widget-post__textarea scroller" placeholder="share your moments"></textarea>
           </div>
-          <div class="widget-post__options is--hidden" id="stock-options">
+          <div class="widget-post__options" id="stock-options">
               <label for="search" class="sr-only">Select Symbol</label>
               <input type="search" placeholder="Select Symbol" class=" widget-post___input widget-post--search search--stock" id="search">
 
@@ -239,10 +239,12 @@
   var uploadLabel = document.querySelector('.post-actions__label');
 
   var a11yRoleExpanded = function(targetElm, clickElm) {
-    if (targetElm.classList.contains('is--hidden')) {
+    if (targetElm.classList.contains('js--hidden')) {
       clickElm.setAttribute('aria-expanded', 'false');
+      targetElm.setAttribute('aria-hidden', 'true');
     } else {
       clickElm.setAttribute('aria-expanded', 'true');
+      targetElm.setAttribute('aria-hidden', 'false');
     }
   };
   var fakeUploadClick = function(e) {
@@ -252,9 +254,15 @@
     }
   };
 
-  stockBtn.setAttribute('aria-expanded', 'false');
+  var addJsElementAttr = (function () {
+    stockBtn.setAttribute('aria-expanded', 'false');
+    postStockOptions.setAttribute('aria-hidden', 'true');
+
+    postStockOptions.classList.add('js--hidden');
+  })();
+
   stockBtn.addEventListener('click', function() {
-    postStockOptions.classList.toggle('is--hidden');
+    postStockOptions.classList.toggle('js--hidden');
     searchStock.focus();
     a11yRoleExpanded(postStockOptions, stockBtn);
   });
