@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+
+  <title>Videos and captions.</title>
+
+  <style>
+    body {
+      padding: 0 1em;
+    }
+    figure {
+      margin: 1em 0;
+    }
+  </style>
+
+</head>
+<body>
+
+  <main id="main"
+        class="container"
+        role="main"
+        aria-labelledby="main-title">
+
+    <h1 id="main-title">Videos and captions.</h1>
+
+    <video id="video"  class="video" controls>
+      <source src="http://techslides.com/demos/sample-videos/small.webm" type="video/webm">
+      <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4">
+      <track kind="subtitles" src="subtitles/en.vtt" srclang="en" label="English">
+      <track kind="subtitles" src="subtitles/ar.vtt" srclang="ar" label="العربية">
+    </video>
+
+    <h2>video with figure&figcaption</h2>
+    <figure>
+      <video id="video-figure" class="video" controls aria-describedby="video-caption">
+        <source src="http://techslides.com/demos/sample-videos/small.webm" type="video/webm">
+        <source src="http://techslides.com/demos/sample-videos/small.mp4" type="video/mp4">
+        <track kind="subtitles" src="subtitles/en.vtt" srclang="en" label="English">
+        <track kind="subtitles" src="subtitles/ar.vtt" srclang="ar" label="العربية">
+      </video>
+      <figcaption id="video-caption">
+        kid play with toy and he called her brother and say to him "Jessy, this is mom".
+      </figcaption>
+    </figure>
+
+  </main>
+
+
+<script>
+
+  var videos = document.querySelectorAll('.video');
+
+  var toggleVideoActions = function () {
+    this.paused ? this.play() : this.pause()
+  }
+
+
+  videos.forEach(function(video) {
+    video.addEventListener('click',toggleVideoActions)
+  })
+
+</script>
+</body>
+</html>
