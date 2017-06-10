@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+
+  <title>Search and skip links.</title>
+
+  <style>
+    body {
+      padding: 0 1em;
+    }
+
+    .js--hidden {
+      display: none;
+    }
+
+    /* *  Skip links * */
+    .skip-links {
+      position: relative;
+
+      list-style-type: none;
+    }
+
+    .skip-links__item {
+      position: absolute;
+      transform: translateY(-80px);
+
+      padding: 1em;
+
+      background: #000;
+      color: white;
+
+      text-decoration: none;
+
+      transition: transform .5s ease-in-out;
+    }
+    .skip-links__item:focus {
+      transform: translateY(0);
+    }
+
+
+    /* *  Placeholder contrast * */
+    ::-webkit-input-placeholder {
+      color: #666;
+    }
+    ::-moz-placeholder {
+      color: #666;
+    }
+    :-ms-input-placeholder {
+      color: #666;
+    }
+    :-moz-placeholder {
+      color: #666;
+    }
+
+
+  </style>
+
+</head>
+<body>
+  <ul class="skip-links">
+    <li class="skip-links__list">
+      <a href="#search-input" class="skip-links__item">skip to search</a>
+    </li>
+    <li class="skip-links__list">
+      <a href="#search-hidden-input" class="skip-links__item skip-links--search">skip to hidden search</a>
+    </li>
+  </ul>
+
+
+  <main id="main"
+        class="container"
+        role="main"
+        aria-label="main content">
+
+    <h1>Search & skip links.</h1>
+
+    <form class="form"
+          role="search"
+          aria-labelledby="search-title">
+      <h2 id="search-title">search form:</h2>
+
+      <label for="search-input">search:</label>
+      <input type="search" id="search-input" placeholder="search about...">
+    </form>
+
+
+  <br><br><br>
+
+  <button class="search-btn"
+          aria-haspopup="true"
+          aria-controls="search-form">
+    <!-- <i class="fa fa-search" aria-hidden="true"></i> -->
+    <img src="https://cdn3.iconfinder.com/data/icons/eightyshades/512/11_Search-24.png" alt="Search">
+  </button>
+  <div id="search-form" class="search search--form">
+    <form id="search-hidden" class="form"
+          role="search"
+          aria-labelledby="search-hidden-title">
+      <h2 id="search-hidden-title">search hidden form:</h2>
+
+      <label for="search-hidden-input">search:</label>
+      <input type="search" id="search-hidden-input" class="search__input" placeholder="search about...">
+    </form>
+  </div>
+
+
+  </main>
+
+<script>
+
+  var searchLinkSkip = document.querySelector('.skip-links--search');
+  var searchToggleBtn = document.querySelector('.search-btn');
+  var searchForm = document.querySelector('.search--form');
+  var searchInput = document.querySelector('.search__input');
+
+  var a11yRoleToggle = function(targetElm, clickElm) {
+    if (targetElm.classList.contains('js--hidden')) {
+      clickElm.setAttribute('aria-expanded', 'false');
+      targetElm.setAttribute('aria-hidden', 'true');
+    } else {
+      clickElm.setAttribute('aria-expanded', 'true');
+      targetElm.setAttribute('aria-hidden', 'false');
+    }
+  };
+
+  var addJsElementAttr = (function () {
+    searchToggleBtn.setAttribute('aria-expanded', 'false');
+    searchForm.setAttribute('aria-hidden', 'true');
+
+    searchForm.classList.add('js--hidden');
+  })();
+
+  var openSkipLinkForm = function(e) {
+    var keyboardNum = e.which;
+    if (keyboardNum === 13) {
+      searchForm.classList.remove('js--hidden');
+      a11yRoleToggle(searchForm, searchToggleBtn);
+    }
+  };
+
+  searchToggleBtn.addEventListener('click', function() {
+    searchForm.classList.toggle('js--hidden');
+    a11yRoleToggle(searchForm, searchToggleBtn);
+
+    searchInput.focus()
+  });
+
+  searchLinkSkip.addEventListener('keydown', openSkipLinkForm);
+
+</script>
+
+</body>
+</html>
