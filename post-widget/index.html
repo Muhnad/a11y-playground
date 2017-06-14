@@ -21,10 +21,6 @@
 
 
    /* * Post widget * */
-
-    input[type="file"] {
-      display: none;
-    }
     ul {
       list-style-type: none;
     }
@@ -210,13 +206,13 @@
                 <!-- <i class="fa fa-usd" aria-hidden="true"></i> -->
                 stock
               </button>
-              <button class="btn post-actions__upload attachments--btn">
+              <button class="btn post-actions__upload attachments--btn" aria-haspopup="true">
                 <label for="upload-image" class="post-actions__label">
                   <!-- <i class="fa fa-upload" aria-hidden="true"></i> -->
                   upload image
                 </label>
               </button>
-              <input type="file" id="upload-image" accept="image/*" multiple>
+              <input type="file" id="upload-image" class="post-actions__file" accept="image/*" multiple>
             </div>
             <div class="post-actions__widget">
               <button class="btn post-actions__publish">publish</button>
@@ -235,6 +231,8 @@
   var uploadBtn = document.querySelector('.post-actions__upload');
   var uploadLabel = document.querySelector('.post-actions__label');
 
+  var uploadImageInput = document.getElementById('upload-image');
+
   var a11yRoleExpanded = function(targetElm, clickElm) {
     if (targetElm.classList.contains('js--hidden')) {
       clickElm.setAttribute('aria-expanded', 'false');
@@ -250,6 +248,8 @@
       uploadLabel.click();
     }
   };
+
+  uploadImageInput.classList.add('js--hidden');
 
   var addJsElementAttr = (function () {
     stockBtn.setAttribute('aria-expanded', 'false');
