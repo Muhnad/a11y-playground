@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+
+  <title>Arabic language detect</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    p[lang="ar"] {
+      border: 1px dashed #000;
+      padding: .5em;
+
+      position: relative;
+    }
+    p[lang="ar"]:before {
+      content: "lang: " attr(lang);
+      background-color: #fff;
+      padding: 0 1em;
+
+      position: absolute;
+      transform: translateY(-1.5em);
+    }
+    p {
+      margin-bottom: 2em;
+    }
+    body {
+      padding: 0 1em;
+      font-family: sans-serif;
+    }
+    main h1 {
+      text-align: center;
+    }
+
+  </style>
+
+</head>
+<body>
+  <main id="main"
+        role="main"
+        aria-labelledby="main-title"
+        aria-describedby="main-desc">
+
+    <h1 id="main-title">RTL: Arabic language detect.</h1>
+    <p id="main-desc">This script I used in a project I worked on the project make users write posts so some our users write posts by the Arabic language in English website so this script is detected Arabic words in paragraphs in the website and add to this paragraphs direction and language attributes.</p>
+    <p>مثال رقم واحد.</p>
+    <p>مثال اخر.</p>
+
+  </main>
+
+<script>
+  // [1] Change the unicode pattern for your language;
+  // [2] Change the lang & dir variables to your language pattern;
+
+  const arabicCharacters = /[\u0600-\u06ff]/; // [1]
+  const paragraphs = [...document.getElementsByTagName('p')];
+
+  const hasArabicWords = function(parg) {
+    if (arabicCharacters.test(parg.textContent)) {
+      let lang = 'ar'; // [2]
+      let dir = 'rtl'; // [2]
+      parg.setAttribute('lang', lang);
+      parg.setAttribute('dir', dir);
+    }
+  }
+
+  paragraphs.forEach(hasArabicWords);
+</script>
+
+</body>
+</html>
