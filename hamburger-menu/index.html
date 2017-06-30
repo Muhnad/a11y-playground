@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+
+  <title>Hamburger menu</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+    :focus {
+      outline: 2px solid #000;
+      outline-offset: .5em;
+    }
+    body {
+      padding: 0 1em;
+      font-family: sans-serif;
+    }
+
+    ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .btn {
+      padding: .5em 1em;
+
+      cursor: pointer;
+    }
+
+    main h1 {
+      text-align: center;
+    }
+
+    .nav__toggle {
+      display: block;
+      margin-bottom: 1em;
+    }
+    .nav__list {
+      display: inline-block;
+      width: 25%;
+      height: 80vh;
+      padding: 1em;
+      background-color: #ddd;
+    }
+    .nav__list-item {
+      padding-bottom: 1em;
+    }
+    .nav__list-link {
+      color: #000;
+      text-decoration: none;
+    }
+    .nav__list-link:hover,
+    .nav__list-link:focus {
+      color: #000;
+      text-decoration: underline;
+    }
+
+    .js--hidden {
+      display: none;
+    }
+
+    /* * SR * */
+    .sr-only {
+      width: 1px;
+      height: 1px;
+
+      clip: rect(1px, 1px, 1px, 1px);
+      -webkit-clip-path: inset(50%);
+      clip-path: inset(50%);
+
+      overflow: hidden;
+      white-space: nowrap;
+
+      position: absolute;
+      top: 0;
+
+    }
+  </style>
+
+</head>
+<body>
+  <main id="main"
+    role="main"
+    aria-labelledby="main-title">
+
+    <h1 id="main-title">hamburger menu example</h1>
+
+  <nav class="nav nav--hamburger"
+    role="navigation"
+    aria-label="hamburger menu">
+
+    <button class="btn nav__toggle"
+      aria-haspopup="true"
+      aria-controls="nav-list">
+      <!-- in case you need to use font-icons.
+        <span class="sr-only">Menu</span>
+        <i class="fa fa-bars" aria-hidden="true"></i>
+      -->
+        Menu
+      </button>
+    <div id="nav-list" class="nav__list">
+      <ul>
+        <li class="nav__list-item">
+          <a href="#" class="nav__list-link">Item xx</a>
+        </li>
+        <li class="nav__list-item">
+          <a href="#" class="nav__list-link">Item xx</a>
+        </li>
+        <li class="nav__list-item">
+          <a href="#" class="nav__list-link">Item xx</a>
+        </li>
+        <li class="nav__list-item">
+          <a href="#" class="nav__list-link">Item xx</a>
+        </li>
+      </ul>
+      <button class="btn nav__list-close">
+      <!-- in case you need to use font-icons.
+        <span class="sr-only">Close menu</span>
+        <i class="fa fa-close" aria-hidden="true"></i>
+      -->
+        close
+      </button>
+    </div>
+
+  </nav>
+
+
+  </main>
+
+<script>
+  var navToggle = document.querySelector('.nav__toggle');
+  var navList = document.querySelector('.nav__list');
+  var firstNavlink = document.querySelector('.nav__list-link');
+  var navListClose = document.querySelector('.nav__list-close');
+
+
+  var a11yRoleExpanded = function(targetElm, clickElm) {
+    if (targetElm.classList.contains('js--hidden')) {
+      clickElm.setAttribute('aria-expanded', 'false');
+      targetElm.setAttribute('aria-hidden', 'true');
+    } else {
+      clickElm.setAttribute('aria-expanded', 'true');
+      targetElm.setAttribute('aria-hidden', 'false');
+    }
+  };
+
+  var toggleElemnts = function (toggleElm) {
+    toggleElm.classList.toggle('js--hidden');
+  }
+  var focusElem = function (focusElm) {
+    focusElm.focus()
+  }
+
+  var toggleERoles = (function () {
+    navToggle.setAttribute('aria-expanded', 'false');
+    navList.setAttribute('aria-hidden', 'true');
+
+    navList.classList.add('js--hidden');
+  })();
+
+  navToggle.addEventListener('click', function() {
+    toggleElemnts(navList);
+    focusElem(firstNavlink)
+
+    a11yRoleExpanded(navList, navToggle);
+  });
+
+  navListClose.addEventListener('click', function() {
+    toggleElemnts(navList);
+    focusElem(navToggle)
+
+    a11yRoleExpanded(navList, navToggle);
+  });
+
+</script>
+
+</body>
+</html>
