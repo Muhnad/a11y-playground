@@ -1,11 +1,16 @@
+// Add Element role.
+var addRole = function(element, role, roleVal) {
+  return element.setAttribute(role, roleVal);
+};
+
 // Toggle aria-expanded & hidden roles.
 var a11yRoleExpanded = function(targetElm, clickElm) {
   if (targetElm.classList.contains('js--hidden')) {
-    clickElm.setAttribute('aria-expanded', 'false');
-    targetElm.setAttribute('aria-hidden', 'true');
+    addRole(clickElm, 'aria-expanded', 'false');
+    addRole(targetElm, 'aria-hidden', 'true');
   } else {
-    clickElm.setAttribute('aria-expanded', 'true');
-    targetElm.setAttribute('aria-hidden', 'false');
+    addRole(clickElm, 'aria-expanded', 'true');
+    addRole(targetElm, 'aria-hidden', 'false');
   }
 };
 
@@ -33,8 +38,8 @@ var DetectedArParagraphs = (function() {
     if (arabicCharacters.test(parg.textContent)) {
       var lang = 'ar';
       var dir = 'rtl';
-      parg.setAttribute('lang', lang);
-      parg.setAttribute('dir', dir);
+      addRole(parg, 'lang', lang);
+      addRole(parg, 'dir', dir);
     }
   };
 
