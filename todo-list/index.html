@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+
+  <title>Todo-list</title>
+
+  <style>
+    body {
+      padding: 0 1em;
+    }
+
+    main {
+      width: 800px;
+      text-align: center;
+      margin: auto;
+    }
+
+  /* * Form * */
+    form {
+      margin-bottom: 1em;
+    }
+    label {
+      display: block;
+
+      margin-bottom: .2em;
+    }
+    input {
+      display: inline-block;
+      width: 80%;
+      padding: 1em;
+    }
+    .todo__add {
+      display: inline-block;
+      width: 15%;
+      padding: 1em;
+    }
+    .todo__list {
+      padding-left: 1em;
+      text-align: left;
+    }
+    .todo__remove {
+      margin-left: 10px;
+    }
+
+
+  /* * SR * */
+  .sr-only {
+    width: 1px;
+    height: 1px;
+
+    clip: rect(1px, 1px, 1px, 1px);
+    -webkit-clip-path: inset(50%);
+    clip-path: inset(50%);
+
+    overflow: hidden;
+    white-space: nowrap;
+
+    position: absolute;
+    top: 0;
+
+  }
+
+
+  /* *  Placeholder contrast * */
+    ::-webkit-input-placeholder {
+      color: #666;
+    }
+    ::-moz-placeholder {
+      color: #666;
+    }
+    :-ms-input-placeholder {
+      color: #666;
+    }
+    :-moz-placeholder {
+      color: #666;
+    }
+
+
+  </style>
+
+</head>
+<body>
+  <main id="main"
+        role="main"
+        aria-labelledby="main-title">
+
+    <h1 id="main-title">Accessible todo-list</h1>
+
+    <form id="form"
+          class="todo"
+          aria-labelledby="form-title">
+
+      <h2 id="form-title">Todo-list</h2>
+
+      <label for="form-text" class="sr-only">write note</label>
+      <input type="text"
+             placeholder="Write note"
+             id="form-text"
+             class="todo__input"
+             required>
+      <button class="todo__add">Add note</button>
+
+      <ul id="list" class="todo__list"></ul>
+    </form>
+
+  </main>
+
+<script>
+  const form = document.getElementById('form');
+  const formInput = document.getElementById('form-text');
+  const list = document.getElementById('list');
+
+  const _createElement = function (element) {
+    return document.createElement(element)
+  }
+  const _createElementText = function (element) {
+    return document.createTextNode(element)
+  }
+
+  const _appendElement = function (element, elementChild) {
+    return element.appendChild(elementChild)
+  }
+
+  const _addRole = function (element, role, roleVal) {
+    return element.setAttribute(role, roleVal)
+  }
+
+
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+
+    let inputVal = formInput.value;
+
+    let li = _createElement('li');
+    let removeBtn = _createElement('button');
+
+    let liTxt = _createElementText(inputVal)
+    let removeBtnTxt = _createElementText('X')
+
+    _addRole(removeBtn, 'aria-label', 'Remove note');
+    _addRole(removeBtn, 'type', 'button');
+    _addRole(removeBtn, 'class', 'remove todo__remove');
+
+    _appendElement(li, liTxt);
+    _appendElement(li, removeBtn);
+    _appendElement(removeBtn, removeBtnTxt);
+    _appendElement(list, li)
+
+    formInput.value = '';
+
+    removeBtn.addEventListener('click', function () {
+      this.parentNode.remove()
+    })
+  });
+
+</script>
+
+</body>
+</html>
